@@ -26,8 +26,7 @@ npm install
 
 ### Local configuration
 
-- Rename `example.dev.vars` to `.dev.vars` and each variables.
-- Rename `example.wrangler.toml` to `wrangler.toml` and set variables.
+Rename `example.dev.vars` to `.dev.vars` and each variables.
 
 ### Register commands
 
