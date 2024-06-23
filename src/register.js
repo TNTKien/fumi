@@ -1,4 +1,4 @@
-import { AWW_COMMAND, INVITE_COMMAND, PING_COMMAND } from './commands.js';
+import { INVITE_COMMAND, PING_COMMAND } from './commands.js';
 import dotenv from 'dotenv';
 import process from 'node:process';
 
