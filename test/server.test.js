@@ -5,7 +5,7 @@ import {
   InteractionType,
   InteractionResponseFlags,
 } from 'discord-interactions';
-import { INVITE_COMMAND, PING_COMMAND } from '../src/commands.js';
+import { INVITE_COMMAND } from '../src/commands.js';
 import sinon from 'sinon';
 import server from '../src/server.js';
 
