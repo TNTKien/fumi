@@ -78,6 +78,15 @@ router.post('/', async (request, env) => {
           },
         });
       }
+
+      case PING_COMMAND.name.toLowerCase(): {
+        return new JsonResponse({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: {
+            content: 'Pong!',
+          },
+        });
+      }
       default:
         return new JsonResponse({ error: 'Unknown Type' }, { status: 400 });
     }
