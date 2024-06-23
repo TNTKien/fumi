@@ -1,6 +1,6 @@
 {
   "name": "mirai-v14",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "bot",
   "type": "module",
   "main": "src/server.js",
