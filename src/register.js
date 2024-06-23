@@ -34,7 +34,7 @@ const response = await fetch(url, {
     Authorization: `Bot ${token}`,
   },
   method: 'PUT',
-  body: JSON.stringify([AWW_COMMAND, INVITE_COMMAND, PING_COMMAND]),
+  body: JSON.stringify([INVITE_COMMAND, PING_COMMAND]),
 });
 
 if (response.ok) {
