@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "bot",
   "type": "module",
-  "private": true,
   "main": "src/server.js",
   "scripts": {
     "start": "wrangler dev",
