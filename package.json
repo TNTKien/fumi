@@ -11,14 +11,16 @@
     "fix": "eslint --fix '**/*.js'",
     "lint": "eslint '**/*.js'",
     "register": "node src/register.js",
-    "publish": "wrangler deploy"
+    "publish": "wrangler deploy",
+    "sync": "npx wrangler deploy"
   },
   "keywords": [],
   "author": "Justin Beckwith <justin.beckwith@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "discord-interactions": "^4.0.0",
-    "itty-router": "^5.0.9"
+    "itty-router": "^5.0.9",
+    "slash-create": "^6.1.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.1.1",

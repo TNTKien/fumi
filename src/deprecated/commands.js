@@ -12,3 +12,16 @@ export const PING_COMMAND = {
   name: 'ping',
   description: 'Pong!',
 };
+
+export const AVATAR_COMMAND = {
+  name: 'avatar',
+  description: 'Get the avatar of a user',
+  options: [
+    {
+      name: 'user',
+      description: 'The user to get the avatar',
+      type: 6,
+      required: false,
+    },
+  ],
+};
