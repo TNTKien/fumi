@@ -9,7 +9,6 @@ import {
   verifyKey,
 } from 'discord-interactions';
 import { INVITE_COMMAND, PING_COMMAND } from './commands.js';
-import { getCuteUrl } from './reddit.js';
 import { InteractionResponseFlags } from 'discord-interactions';
 
 class JsonResponse extends Response {
