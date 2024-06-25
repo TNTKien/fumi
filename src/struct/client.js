@@ -1,7 +1,10 @@
 import { SlashCreator, CloudflareWorkerServer } from 'slash-create/web';
-import Ping from '../commands/ping';
-import Avatar from '../commands/avatar';
 
+import Ping from '../commands/ping';
+import Play from '../commands/play';
+import Stop from '../commands/stop';
+import Avatar from '../commands/utility/avatar';
+import Banner from '../commands/utility/banner';
 export default class FumiClient extends SlashCreator {
   constructor(env) {
     super({
@@ -14,7 +17,17 @@ export default class FumiClient extends SlashCreator {
   }
 
   async start() {
-    this.withServer(this.workers).registerCommands([Ping, Avatar]);
+    this.withServer(this.workers).registerCommands([
+      Ping,
+      Avatar,
+      Play,
+      Stop,
+      Banner,
+    ]);
+    // this.withServer(this.workers)
+    //   .registerCommandsIn('../commands')
+    //   .syncCommands();
+
     // <--> handle component interactions
     this.on('componentInteraction', async (ctx) => {
       //   const functions = { "acknowledged": acknowledged };
