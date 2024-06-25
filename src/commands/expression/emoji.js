@@ -1,15 +1,14 @@
 import { SlashCommand } from 'slash-create/web';
 
-export default class Play extends SlashCommand {
+export default class Emoji extends SlashCommand {
   constructor(creator) {
     super(creator, {
-      name: 'play',
-      description: 'Chơi con mẹ mày!',
+      name: 'emoji',
+      description: 'Emoji Management',
     });
   }
 
   async run(ctx) {
-    this.ctx = ctx;
     return `kkk`;
   }
 }

@@ -9,7 +9,6 @@ export default class Ping extends SlashCommand {
   }
 
   async run(ctx) {
-    this.ctx = ctx;
-    return `Pong!`;
+    await ctx.send('Pong!');
   }
 }

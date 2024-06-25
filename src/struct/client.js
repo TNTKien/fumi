@@ -1,10 +1,11 @@
 import { SlashCreator, CloudflareWorkerServer } from 'slash-create/web';
 
 import Ping from '../commands/ping';
-import Play from '../commands/play';
-import Stop from '../commands/stop';
 import Avatar from '../commands/utility/avatar';
 import Banner from '../commands/utility/banner';
+import Play from '../commands/music/play';
+import Stop from '../commands/music/stop';
+import Emoji from '../commands/expression/emoji';
 export default class FumiClient extends SlashCreator {
   constructor(env) {
     super({
@@ -23,6 +24,7 @@ export default class FumiClient extends SlashCreator {
       Play,
       Stop,
       Banner,
+      Emoji,
     ]);
     // this.withServer(this.workers)
     //   .registerCommandsIn('../commands')
