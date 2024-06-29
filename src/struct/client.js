@@ -6,6 +6,7 @@ import Banner from '../commands/utility/banner';
 import Play from '../commands/music/play';
 import Stop from '../commands/music/stop';
 import Emoji from '../commands/expression/emoji';
+import Link from '../commands/hsr/link';
 export default class FumiClient extends SlashCreator {
   constructor(env) {
     super({
@@ -25,6 +26,7 @@ export default class FumiClient extends SlashCreator {
       Stop,
       Banner,
       Emoji,
+      Link,
     ]);
     // this.withServer(this.workers)
     //   .registerCommandsIn('../commands')
