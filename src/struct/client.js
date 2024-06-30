@@ -4,8 +4,6 @@ import Database from './database';
 import Ping from '../commands/ping';
 import Avatar from '../commands/utility/avatar';
 import Banner from '../commands/utility/banner';
-import Play from '../commands/music/play';
-import Stop from '../commands/music/stop';
 import Emoji from '../commands/expression/emoji';
 import Link from '../commands/hsr/link';
 import initSchema from './schema';
@@ -27,8 +25,6 @@ export default class FumiClient extends SlashCreator {
     this.withServer(this.workers).registerCommands([
       Ping,
       Avatar,
-      Play,
-      Stop,
       Banner,
       Emoji,
       Link,
