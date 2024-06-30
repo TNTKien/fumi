@@ -1,4 +1,5 @@
 import { SlashCreator, CloudflareWorkerServer } from 'slash-create/web';
+import Database from './database';
 
 import Ping from '../commands/ping';
 import Avatar from '../commands/utility/avatar';
@@ -7,6 +8,8 @@ import Play from '../commands/music/play';
 import Stop from '../commands/music/stop';
 import Emoji from '../commands/expression/emoji';
 import Link from '../commands/hsr/link';
+import initSchema from './schema';
+import Profile from '../commands/hsr/profile';
 export default class FumiClient extends SlashCreator {
   constructor(env) {
     super({
@@ -16,6 +19,8 @@ export default class FumiClient extends SlashCreator {
     });
     this.workers = new CloudflareWorkerServer();
     this.env = env;
+    this.db = env.database;
+    this.users = new Database(this, 'users');
   }
 
   async start() {
@@ -27,6 +32,7 @@ export default class FumiClient extends SlashCreator {
       Banner,
       Emoji,
       Link,
+      Profile,
     ]);
     // this.withServer(this.workers)
     //   .registerCommandsIn('../commands')
@@ -49,9 +55,23 @@ export default class FumiClient extends SlashCreator {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const pathname = url.pathname;
-    //await initSchema(env.database);
+    await initSchema(env.database);
     if (pathname.startsWith('/interactions'))
       return this.workers.fetch(request, env, ctx);
+    if (pathname.startsWith('/home')) {
+      const html = `
+      <html>
+        <head>
+          <title>Fumi</title>
+        </head>
+        <body>
+          <h1>Fumi</h1>
+        </body>
+        </html>`;
+      return new Response(html, {
+        headers: { 'content-type': 'text/html;charset=UTF-8' },
+      });
+    }
     return new Response('Not found', { status: 404 });
   }
 }

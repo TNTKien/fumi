@@ -13,7 +13,7 @@ export default class Link extends SlashCommand {
       description: 'Link your Honkai Star Rail account to Discord',
       options: [
         {
-          type: CommandOptionType.INTEGER,
+          type: CommandOptionType.STRING,
           name: 'uid',
           description: 'Your HSR UID',
           required: true,
@@ -23,9 +23,13 @@ export default class Link extends SlashCommand {
   }
 
   async run(ctx) {
-    await ctx.defer();
-    //const authorID = ctx.member.id;
+    await ctx.defer({ ephemeral: true });
+    const memberID = ctx.member.id;
     const hsrUID = ctx.options.uid;
+
+    // check if the user has already linked their account
+    const user = await ctx.creator.users.get(memberID);
+    if (user) return await ctx.send('You have already linked your account!');
 
     const res = await HsrPlayer(hsrUID);
     if (!res.data) return ctx.send(`Error: ${res.status} - ${res.message}`);
@@ -91,11 +95,24 @@ export default class Link extends SlashCommand {
     });
 
     ctx.registerComponent('link_confirm', async (btnCtx) => {
-      await btnCtx.editParent({
-        content: `✅ Linked! UID: ${playerData.uid}`,
-        components: [],
-        embeds: [],
-      });
+      await ctx.creator.users
+        .newUser(memberID, hsrUID)
+        .then(
+          async (newUser) =>
+            await btnCtx.editParent({
+              content: `✅ Linked! UID: ${newUser.hsrID}`,
+              components: [],
+              embeds: [],
+            }),
+        )
+        .catch(async (err) => {
+          console.log(err);
+          await btnCtx.editParent({
+            content: '⚠️ Error linking account',
+            components: [],
+            embeds: [],
+          });
+        });
     });
 
     ctx.registerComponent('link_cancel', async (btnCtx) => {
