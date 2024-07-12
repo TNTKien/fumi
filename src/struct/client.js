@@ -8,6 +8,8 @@ import Emoji from '../commands/expression/emoji';
 import Link from '../commands/hsr/link';
 import initSchema from './schema';
 import Profile from '../commands/hsr/profile';
+import Character from '../commands/hsr/character';
+
 export default class FumiClient extends SlashCreator {
   constructor(env) {
     super({
@@ -29,6 +31,7 @@ export default class FumiClient extends SlashCreator {
       Emoji,
       Link,
       Profile,
+      Character,
     ]);
     // this.withServer(this.workers)
     //   .registerCommandsIn('../commands')

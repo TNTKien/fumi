@@ -41,6 +41,33 @@ export const HsrPlayer = async (id) => {
   return { status: 200, message: 'Success', data: playerinfo };
 };
 
+export const HsrCharacter = async (id) => {
+  const url = baseHsrAPI + `/uid/` + id;
+  const res = await fetch(url, {
+    headers: {
+      'User-Agent': 'enkanetwork.js/v2.8.1',
+    },
+  });
+
+  const status = res.status;
+  if (status !== 200) {
+    const errorMessage =
+      {
+        400: 'Wrong UID format',
+        404: 'Player does not exist',
+        424: 'Game maintenance',
+        429: 'Rate-limited',
+        500: 'Internal server error',
+        503: 'Service unavailable',
+        403: 'Forbidden',
+      }[status] || 'Unknown Error';
+    return { status: status, message: errorMessage, data: null };
+  }
+  const data = await res.json();
+  const characterLists = data.detailInfo.avatarDetailList;
+  return { status: 200, message: 'Success', data: characterLists };
+};
+
 // Sample data
 // {
 //     detailInfo: {

@@ -25,7 +25,8 @@ export default class Profile extends SlashCommand {
       return await ctx.send('This user has not linked their account yet!');
 
     const res = await HsrPlayer(user.hsrID);
-    if (!res.data) return ctx.send(`Error: ${res.status} - ${res.message}`);
+    if (!res.data)
+      return await ctx.send(`Error: ${res.status} - ${res.message}`);
 
     const playerData = res.data;
 
