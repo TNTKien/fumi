@@ -10,3 +10,7 @@ export const hsrHashJSON =
   'https://raw.githubusercontent.com/Jelosus2/enkanetwork.js/master/src/utils/StarRail/hashes.json';
 export const hsrWeaponJSON =
   'https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/hsr/honker_weps.json';
+export const metaJsonUrl =
+  'https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/hsr/honker_meta.json';
+export const skillTreeURL =
+  'https://raw.githubusercontent.com/Jelosus2/enkanetwork.js/master/src/utils/StarRail/skilltree.json';

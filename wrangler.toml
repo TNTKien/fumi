@@ -2,6 +2,7 @@ name = "mirai-v14"
 main = "./src/main.js"
 compatibility_date = "2023-08-23"
 
+
 [[d1_databases]]
 binding = "database"
 database_name = "fumi"
@@ -11,3 +12,4 @@ database_id = "475ba08d-4332-43f1-95c9-705f4031e02e"
 # DISCORD_TOKEN
 # DISCORD_PUBLIC_KEY
 # DISCORD_APPLICATION_ID
+

@@ -24,52 +24,17 @@ export default class Character extends SlashCommand {
   }
   async run(ctx) {
     await ctx.defer({ ephemeral: true });
+    //try {
     const memberID = ctx.member.id;
     const user = await ctx.creator.users.get(memberID);
 
     if (!user)
       return await ctx.send('This user has not linked their account yet!');
 
-    const res = await HsrCharacter(user.hsrID);
-    if (!res.data)
-      return await ctx.send(`Error: ${res.status} - ${res.message}`);
+    const { status, message, data } = await HsrCharacter(user.hsrID);
+    if (!data) return await ctx.send(`Error: ${res.status} - ${res.message}`);
 
-    const characterData = res.data;
-    //console.log(characterData[1].equipment.tid);
-
-    const hsrHashName = await fetch(hsrHashJSON).then((res) => res.json());
-    const hsrChars = await fetch(hsrCharJSON).then((res) => res.json());
-    const hsrWeapon = await fetch(hsrWeaponJSON).then((res) => res.json());
-
-    const userChars = [];
-    for (const char of characterData) {
-      const charHashName = hsrChars[char.avatarId].AvatarName.Hash;
-      const charName = hsrHashName['en'][charHashName];
-
-      const charImgPath = hsrChars[char.avatarId]['AvatarCutinFrontImgPath'];
-
-      //const LCHashName = hsrWeapon[char.equipment.tid].EquipmentName.Hash;
-      let LCName = '_ _';
-      let LCPath = '';
-      let LCRank = '_ _';
-      if (char.equipment) {
-        LCName = hsrHashName['en'][char.equipment._flat.name];
-        LCPath = hsrWeapon[char.equipment.tid]['ImagePath'];
-        LCRank = char.equipment.rank;
-      }
-
-      userChars.push({
-        name: charName,
-        level: char.level,
-        rank: char.rank || '0',
-        img: baseHsrUI + charImgPath,
-        lightcone: {
-          name: LCName,
-          img: baseHsrUI + LCPath,
-          rank: LCRank,
-        },
-      });
-    }
+    const userChars = data;
 
     const menu = [
       {
@@ -94,6 +59,60 @@ export default class Character extends SlashCommand {
 
     ctx.registerComponent('character_select', async (selectCtx) => {
       const selectedChar = userChars[selectCtx.values[0]];
+      // const stats = Object.entries(selectedChar.stats)
+      //   .filter(([key, value]) => value !== 0)
+      //   .map(([key, value]) => {
+      //     if (['HP', 'ATK', 'DEF', 'SPD'].includes(key)) {
+      //       value = Math.floor(value);
+      //     }
+      //     if (
+      //       [
+      //         'CR',
+      //         'CD',
+      //         'E_RES',
+      //         'BE',
+      //         'ER',
+      //         'EHR',
+      //         'PhysicalDMG',
+      //         'FireDMG',
+      //         'IceDMG',
+      //         'WindDMG',
+      //         'LightningDMG',
+      //         'ImaginaryDMG',
+      //         'QuantumDMG',
+      //       ].includes(key)
+      //     ) {
+      //       switch (key) {
+      //         case 'CR':
+      //           key = 'CRIT Rate';
+      //           break;
+      //         case 'CD':
+      //           key = 'CRIT DMG';
+      //           break;
+      //         case 'E_RES':
+      //           key = 'Effect RES';
+      //           break;
+      //         case 'BE':
+      //           key = 'Break Effect';
+      //           break;
+      //         case 'ER':
+      //           key = 'Energy Regen';
+      //           break;
+      //         case 'EHR':
+      //           key = 'Effect Hit Rate';
+      //           break;
+      //         // case key has DMG in it, then add "Boost" to the end
+      //         default:
+      //           key = key + ' Boost';
+      //           break;
+      //       }
+      //       value = Math.floor(value * 100) + '%';
+      //     }
+      //     return `${key}: ${value}`;
+      //   });
+      // console.log(stats);
+      // const FormatedStats = formatStats(stats);
+
       const embed = {
         title:
           selectedChar.name +
@@ -117,6 +136,61 @@ export default class Character extends SlashCommand {
             value: selectedChar.lightcone.name,
             inline: true,
           },
+          {
+            name: 'Stats',
+            value: Object.entries(selectedChar.stats)
+              .filter(([key, value]) => value !== 0)
+              .map(([key, value]) => {
+                if (['HP', 'ATK', 'DEF', 'SPD'].includes(key)) {
+                  value = Math.floor(value);
+                }
+                if (
+                  [
+                    'CR',
+                    'CD',
+                    'E_RES',
+                    'BE',
+                    'ER',
+                    'EHR',
+                    'PhysicalDMG',
+                    'FireDMG',
+                    'IceDMG',
+                    'WindDMG',
+                    'LightningDMG',
+                    'ImaginaryDMG',
+                    'QuantumDMG',
+                  ].includes(key)
+                ) {
+                  switch (key) {
+                    case 'CR':
+                      key = 'CRIT Rate';
+                      break;
+                    case 'CD':
+                      key = 'CRIT DMG';
+                      break;
+                    case 'E_RES':
+                      key = 'Effect RES';
+                      break;
+                    case 'BE':
+                      key = 'Break Effect';
+                      break;
+                    case 'ER':
+                      key = 'Energy Regen';
+                      break;
+                    case 'EHR':
+                      key = 'Effect Hit Rate';
+                      break;
+                    // case key has DMG in it, then add "Boost" to the end
+                    default:
+                      key = key + ' Boost';
+                      break;
+                  }
+                  value = Math.floor(value * 100) + '%';
+                }
+                return `${key}: ${value}`;
+              })
+              .join('\n'),
+          },
         ],
         footer: {
           text: `UID: ${user.hsrID}`,
@@ -124,5 +198,29 @@ export default class Character extends SlashCommand {
       };
       await selectCtx.send({ embeds: [embed] });
     });
+    //   } catch (error) {
+    //     console.log(error);
+    //     await ctx.send(`⚠️ Error!`);
+    //   }
   }
 }
+
+// function formatStats(stats) {
+//   let result = '';
+//   keys.forEach((key, index) => {
+//     if (index < 4) {
+//       result += `${key}: ${stats[key]}, `;
+//       if (index === 3) {
+//         result = result.slice(0, -2) + '\n'; // Remove last comma and add newline
+//       }
+//     } else if (index >= 4 && index < 6) {
+//       result += `${key}: ${stats[key]}, `;
+//       if (index === 5) {
+//         result = result.slice(0, -2) + '\n'; // Remove last comma and add newline
+//       }
+//     } else {
+//       result += `${key}: ${stats[key]}\n`;
+//     }
+//   });
+//   return result.trim(); // Remove the last newline
+// }
