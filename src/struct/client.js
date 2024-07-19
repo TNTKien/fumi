@@ -57,20 +57,12 @@ export default class FumiClient extends SlashCreator {
     await initSchema(env.database);
     if (pathname.startsWith('/interactions'))
       return this.workers.fetch(request, env, ctx);
-    if (pathname.startsWith('/home')) {
-      const html = `
-      <html>
-        <head>
-          <title>Fumi</title>
-        </head>
-        <body>
-          <h1>Fumi</h1>
-        </body>
-        </html>`;
-      return new Response(html, {
-        headers: { 'content-type': 'text/html;charset=UTF-8' },
-      });
-    }
-    return new Response('Not found', { status: 404 });
+
+    const image = await fetch(
+      'https://github.com/TNTKien/fumi/assets/95180188/83b17607-802b-49a3-83a4-fdbf8afe85ea',
+    );
+    return new Response(image.body, {
+      headers: { 'content-type': 'image/png' },
+    });z
   }
 }
