@@ -58,11 +58,22 @@ export default class FumiClient extends SlashCreator {
     if (pathname.startsWith('/interactions'))
       return this.workers.fetch(request, env, ctx);
 
+    if (pathname.startsWith('/avt')) {
+      const imagesPath = join(__dirname, '../../../images/120');
+      const files = readdirSync(imagesPath);
+      const randomFile = files[Math.floor(Math.random() * files.length)];
+      const image = readFileSync(join(imagesPath, randomFile));
+      return new Response(image, {
+        headers: { 'content-type': 'image/png' },
+      });
+    }
+
     const image = await fetch(
       'https://github.com/TNTKien/fumi/assets/95180188/83b17607-802b-49a3-83a4-fdbf8afe85ea',
     );
     return new Response(image.body, {
       headers: { 'content-type': 'image/png' },
-    });z
+    });
+    z;
   }
 }

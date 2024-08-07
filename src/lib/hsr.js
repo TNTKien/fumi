@@ -171,6 +171,7 @@ export const HsrCharacter = async (id) => {
         img: baseHsrUI + LCPath,
         rank: LCRank,
       },
+      stats: null,
     });
   }
   const charStats = await Stats(userJson);
