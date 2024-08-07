@@ -82,6 +82,7 @@ export default class FumiClient extends SlashCreator {
         'hanser.jpg',
         '120r.gif',
         'sui120.jpg',
+        'hoxilo.jpg',
       ];
       const imageURL = `${baseURL}${name[Math.floor(Math.random() * name.length)]}`;
       //redirect to image
