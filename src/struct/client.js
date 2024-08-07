@@ -60,16 +60,33 @@ export default class FumiClient extends SlashCreator {
     if (pathname.startsWith('/interactions'))
       return this.workers.fetch(request, env, ctx);
 
-    // if (pathname.startsWith('/avt')) {
-    //   const imagesPath = join(__dirname, '../../../images/120');
-    //   const files = readdirSync(imagesPath);
-    //   const randomFile = files[Math.floor(Math.random() * files.length)];
-    //   console.log(randomFile);
-    //   const image = readFileSync(join(imagesPath, randomFile));
-    //   return new Response(image, {
-    //     headers: { 'content-type': 'image/png' },
-    //   });
-    // }
+    if (pathname.startsWith('/avt')) {
+      const baseURL =
+        'https://raw.githubusercontent.com/TNTKien/fumi/main/images/120/';
+      const name = [
+        'boothil-honkai-star-rail.gif',
+        'doro_think.png',
+        'dr-ratio-hsr.gif',
+        'firefly-hsr.gif',
+        'gomen.png',
+        'honkai-star-rail-hsr.gif',
+        'jade-hsr-jade.gif',
+        'kafka-honkai.gif',
+        'koyuky.png',
+        'robin-hsr.gif',
+        'silver-wolf-picmix.gif',
+        'softest-good-morning.gif',
+        'topaz-gm.gif',
+        'yuka.png',
+        'kadoko.gif',
+        'hanser.jpg',
+        '120r.gif',
+        'sui120.jpg',
+      ];
+      const imageURL = `${baseURL}${name[Math.floor(Math.random() * name.length)]}`;
+      //redirect to image
+      return Response.redirect(imageURL, 302);
+    }
 
     const image = await fetch(
       'https://github.com/TNTKien/fumi/assets/95180188/83b17607-802b-49a3-83a4-fdbf8afe85ea',
