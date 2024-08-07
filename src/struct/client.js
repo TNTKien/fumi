@@ -64,19 +64,8 @@ export default class FumiClient extends SlashCreator {
       const baseURL =
         'https://raw.githubusercontent.com/TNTKien/fumi/main/images/120/';
       const name = [
-        'boothil-honkai-star-rail.gif',
         'doro_think.png',
-        'dr-ratio-hsr.gif',
-        'firefly-hsr.gif',
-        'gomen.png',
-        'honkai-star-rail-hsr.gif',
-        'jade-hsr-jade.gif',
-        'kafka-honkai.gif',
         'koyuky.png',
-        'robin-hsr.gif',
-        'silver-wolf-picmix.gif',
-        'softest-good-morning.gif',
-        'topaz-gm.gif',
         'yuka.png',
         'kadoko.gif',
         'hanser.jpg',
@@ -85,11 +74,14 @@ export default class FumiClient extends SlashCreator {
         'hoxilo.jpg',
         'nikke-privaty.gif',
         'privaty.gif',
+        'banh.gif',
+        'tri.gif',
+        'mirai.gif',
       ];
       const imageURL = `${baseURL}${name[Math.floor(Math.random() * name.length)]}`;
       //redirect to image
-      const kkk = baseURL + 'bath.jpg';
-      return Response.redirect(kkk, 302);
+      //const kkk = baseURL + 'bath.jpg';
+      return Response.redirect(imageURL, 302);
     }
 
     const image = await fetch(
