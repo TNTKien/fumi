@@ -9,6 +9,8 @@ import Link from '../commands/hsr/link';
 import initSchema from './schema';
 import Profile from '../commands/hsr/profile';
 import Character from '../commands/hsr/character';
+// import { readdirSync, readFileSync } from 'node:fs';
+// import { join } from 'path';
 
 export default class FumiClient extends SlashCreator {
   constructor(env) {
@@ -58,15 +60,16 @@ export default class FumiClient extends SlashCreator {
     if (pathname.startsWith('/interactions'))
       return this.workers.fetch(request, env, ctx);
 
-    if (pathname.startsWith('/avt')) {
-      const imagesPath = join(__dirname, '../../../images/120');
-      const files = readdirSync(imagesPath);
-      const randomFile = files[Math.floor(Math.random() * files.length)];
-      const image = readFileSync(join(imagesPath, randomFile));
-      return new Response(image, {
-        headers: { 'content-type': 'image/png' },
-      });
-    }
+    // if (pathname.startsWith('/avt')) {
+    //   const imagesPath = join(__dirname, '../../../images/120');
+    //   const files = readdirSync(imagesPath);
+    //   const randomFile = files[Math.floor(Math.random() * files.length)];
+    //   console.log(randomFile);
+    //   const image = readFileSync(join(imagesPath, randomFile));
+    //   return new Response(image, {
+    //     headers: { 'content-type': 'image/png' },
+    //   });
+    // }
 
     const image = await fetch(
       'https://github.com/TNTKien/fumi/assets/95180188/83b17607-802b-49a3-83a4-fdbf8afe85ea',
