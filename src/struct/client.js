@@ -69,7 +69,6 @@ export default class FumiClient extends SlashCreator {
         'yuka.png',
         'kadoko.gif',
         'hanser.jpg',
-        '120r.gif',
         'sui120.jpg',
         'hoxilo.jpg',
         'nikke-privaty.gif',
@@ -82,6 +81,7 @@ export default class FumiClient extends SlashCreator {
       const imageURL = `${baseURL}${name[Math.floor(Math.random() * name.length)]}`;
       //redirect to image
       //const kkk = baseURL + 'bath.jpg';
+      console.log(imageURL);
       return Response.redirect(imageURL, 302);
     }
 
