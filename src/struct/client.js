@@ -60,31 +60,6 @@ export default class FumiClient extends SlashCreator {
     if (pathname.startsWith('/interactions'))
       return this.workers.fetch(request, env, ctx);
 
-    if (pathname.startsWith('/avt')) {
-      const baseURL =
-        'https://raw.githubusercontent.com/TNTKien/fumi/main/images/120/';
-      const name = [
-        'doro_think.png',
-        'koyuky.png',
-        'yuka.png',
-        'kadoko.gif',
-        'hanser.jpg',
-        'sui120.jpg',
-        'hoxilo.jpg',
-        'nikke-privaty.gif',
-        'privaty.gif',
-        'banh.gif',
-        'tri.gif',
-        'mirai.jpg',
-        'kokkoro.png',
-      ];
-      const imageURL = `${baseURL}${name[Math.floor(Math.random() * name.length)]}`;
-      //redirect to image
-      //const kkk = baseURL + 'bath.jpg';
-      console.log(imageURL);
-      return Response.redirect(imageURL, 302);
-    }
-
     const image = await fetch(
       'https://github.com/TNTKien/fumi/assets/95180188/83b17607-802b-49a3-83a4-fdbf8afe85ea',
     );
